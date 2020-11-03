@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Edit "{{ sample['sampleName'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="title">Sample Name</label>
+    <input name="sample-name" id="sample-name"
+      value="{{ request.form['sample-name'] or sample['sampleName'] }}" required>
+
+    <label for="analyst">Assigned Analyst</label>
+    <input name="analyst" id="analyst" value="{{ request.form['analyst'] or sample['analyst'] }}">
+
+    <label for="body">Notes</label>
+    <textarea name="notes" id="notes">{{ request.form['notes'] or sample['notes'] }}</textarea>
+
+    <label for="strs">STRs</label>
+    <input type="checkbox" name="strs" id="strs" value="strs-selected" {% if sample['strs'] %}checked{% endif %}>
+
+    <label for="mitobox">Mito</label>
+    <input type="checkbox" name="mito" id="mito" value="mito-selected" {% if sample['mito'] %}checked{% endif %}>
+
+    <label for="is-priority">Priority</label>
+    <input type="checkbox" name="is-priority" id="is-priority" value="is-priority" {% if sample['isPriority'] %}checked{% endif %}>
+
+    <input type="submit" value="Save">
+  </form>
+  <hr>
+  <form action="{{ url_for('dashboard.deleteSample', id=sample['id']) }}" method="post">
+    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+  </form>
+{% endblock %}

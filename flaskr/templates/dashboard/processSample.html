@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Process "{{ sample['sampleName'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="cleaned">Cleaned</label>
+    <input type="checkbox" name="cleaned" id="cleaned" value="cleaned" {% if sample['cleaned'] %}checked{% endif %}>
+
+    <label for="sampled">Sampled</label>
+    <input type="checkbox" name="sampled" id="sampled" value="sampled" {% if sample['sampled'] %}checked{% endif %}>
+
+    <input type="submit" value="Save">
+  </form>
+  <hr>
+{% endblock %}

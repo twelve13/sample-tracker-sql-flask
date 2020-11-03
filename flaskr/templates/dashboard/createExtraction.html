@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}New Extraction{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="extraction-name">Extraction Name</label>
+    <input name="extraction-name" id="extraction-name" value="{{ request.form['extraction-name'] }}" required>
+
+    <label for="goal-date">Goal Date</label>
+    <input name="goal-date" id="goal-date" value="{{ request.form['goal-date'] }}">
+
+    <label for="analyst">Assigned Analyst</label>
+    <input name="analyst" id="analyst" value="{{ request.form['analyst'] }}">
+
+    <label for="notes">Notes</label>
+    <textarea name="notes" id="notes">{{ request.form['notes'] }}</textarea>
+
+    <label for="bbp-added">Buffer Added</label>
+    <input name="bbp-added" id="bbp-added" value="{{ request.form['bbp-added'] }}" required>
+
+    <label for="extracted">Extraction Completed</label>
+    <input name="extracted" id="exted" value="{{ request.form['extracted'] }}" required>
+
+    <input type="submit" value="Save">
+  </form>
+{% endblock %}

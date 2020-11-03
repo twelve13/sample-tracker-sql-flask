@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Extractions{% endblock %}</h1>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('dashboard.createExtraction') }}">New</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% for extraction in extractions %}
+    <article class="extraction">
+      <header>
+        <div>
+          <h1>{{ extraction['extractionName'] }}</h1>
+          <div>Goal Date: {{ extraction['goalDate'] }}</div>
+          <div>Analyst: {{ extraction['analyst'] }}</div>
+          <div>Notes: {{ extraction['notes'] }}</div>
+          <div>Buffers Added: {{ extraction['bbpAdded'] }}</div>
+          <div>Extraction Completed: {{ extraction['extracted'] }}</div>
+        </div>
+          <a class="action" href="{{ url_for('dashboard.updateExtraction', id=extraction['id']) }}">Edit</a>
+      </header>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}

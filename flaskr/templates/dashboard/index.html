@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Samples{% endblock %}</h1>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('dashboard.createSample') }}">New</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% for sample in samples %}
+    <article class="sample">
+      <header>
+        <div class="{{'is-priority' if sample['isPriority']}}">
+          <h1>{{ sample['sampleName'] }}</h1>
+          <div class="sample-info">
+            <div class="analyst-notes">
+              <div>Analyst: {{ sample['analyst'] }}</div>
+              <div>Notes: {{ sample['notes'] }}</div>
+            </div>
+            <div>
+              <div>
+                {% if sample['strs'] %}
+                  STRs
+                {% endif %}
+              </div>
+              <div>
+                {% if sample['mito'] %}
+                  Mito
+                {% endif %}
+              </div>
+            </div>
+            <div>
+              <div>
+                {% if sample['cleaned'] %}
+                  Cleaned &check;
+                {% endif %}
+              </div>
+              <div>
+                {% if sample['sampled'] %}
+                  Sampled &check;
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <a class="action edit-button" href="{{ url_for('dashboard.updateSample', id=sample['id']) }}">Edit</a>
+      </header>
+      {% if not sample['sampled'] %}
+        <a class="process-button action" href="{{ url_for('dashboard.processSample', id=sample['id']) }}">PROCESS</a>
+      {% endif %}
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
