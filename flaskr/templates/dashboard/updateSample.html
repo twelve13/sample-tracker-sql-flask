@@ -6,7 +6,7 @@
 
 {% block content %}
   <form method="post">
-    <label for="title">Sample Name</label>
+    <label for="sample-name">Sample Name</label>
     <input name="sample-name" id="sample-name"
       value="{{ request.form['sample-name'] or sample['sampleName'] }}" required>
 

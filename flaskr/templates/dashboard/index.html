@@ -48,6 +48,10 @@
       {% if not sample['sampled'] %}
         <a class="process-button action" href="{{ url_for('dashboard.processSample', id=sample['id']) }}">PROCESS</a>
       {% endif %}
+
+        <a class="action" href="{{ url_for('dashboard.assignSample', id=sample['id']) }}">Assign to an Extraction</a>
+
+        Assigned to: {{ sample['extraction_name'] }}
     </article>
     {% if not loop.last %}
       <hr>

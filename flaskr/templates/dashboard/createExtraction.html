@@ -18,12 +18,6 @@
     <label for="notes">Notes</label>
     <textarea name="notes" id="notes">{{ request.form['notes'] }}</textarea>
 
-    <label for="bbp-added">Buffer Added</label>
-    <input name="bbp-added" id="bbp-added" value="{{ request.form['bbp-added'] }}" required>
-
-    <label for="extracted">Extraction Completed</label>
-    <input name="extracted" id="exted" value="{{ request.form['extracted'] }}" required>
-
     <input type="submit" value="Save">
   </form>
 {% endblock %}

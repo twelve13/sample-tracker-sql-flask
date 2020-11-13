@@ -16,14 +16,15 @@ CREATE TABLE extraction (
   goalDate TEXT,
   analyst TEXT,
   notes TEXT,
-  bbpAdded INTEGER NOT NULL,
-  extracted INTEGER NOT NULL
+  bbpAdded INTEGER,
+  extracted INTEGER
 );
 
 CREATE TABLE sample (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   sampleName TEXT UNIQUE NOT NULL,
   extraction_id INTEGER,
+  extraction_name TEXT,
   notes TEXT,
   strs INTEGER,
   mito INTEGER,

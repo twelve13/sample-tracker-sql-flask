@@ -1,8 +1,10 @@
 /*do your own css!*/
 
 html { font-family: sans-serif; background: #eee; padding: 1rem; }
-body { max-width: 960px; margin: 0 auto; background: white; }
-h1 { font-family: serif; color: #9500c7; margin: 1rem 0; }
+body { 
+	font-family: 'Roboto', sans-serif;
+	max-width: 960px; margin: 0 auto; background: white; 
+}
 a { color: #377ba8; }
 hr { border: none; border-top: 1px solid lightgray; }
 nav { background: lightgray; display: flex; align-items: center; padding: 0 0.5rem; }
@@ -27,7 +29,6 @@ input.danger { color: #cc2f2e; }
 input[type=submit] { align-self: start; min-width: 10em; }
 
 .sample {
-	padding: 3% 0;
 	position: relative;
 }
 
@@ -48,7 +49,7 @@ input[type=submit] { align-self: start; min-width: 10em; }
 	width: 80px;
 }
 
-.sample-info {
+.sample-info, .extraction-info {
 	display: flex;
 	justify-content: space-between;
 }
@@ -56,6 +57,7 @@ input[type=submit] { align-self: start; min-width: 10em; }
 .process-button {
 	background-color: #00ffd0;
 	border-radius: 15px;
+	bottom: 10px;
 	color: black;
 	padding: 5px;
 	position: absolute;

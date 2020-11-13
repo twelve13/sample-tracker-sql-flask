@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Process "{{ extraction['extractionName'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="bbpAdded">Buffers Added</label>
+    <input type="checkbox" name="bbpAdded" id="bbpAdded" value="bbpAdded" {% if extraction['bbpAdded'] %}checked{% endif %}>
+
+    <label for="extracted">Extraction Complete</label>
+    <input type="checkbox" name="extracted" id="extracted" value="extracted" {% if extraction['extracted'] %}checked{% endif %}>
+
+    <input type="submit" value="Save">
+  </form>
+  <hr>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Samples Associated With "{{ extraction['extractionName'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<article class="sample">
+  <ul>
+  {% for associatedSample in associatedSamples %}
+
+        <li>test {{ associatedSample['sampleName'] }}</li>
+
+  {% endfor %}
+  </ul>
+
+  </article>
+{% endblock %}

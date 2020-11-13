@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Edit "{{ extraction['extractionName'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="extraction-name">Sample Name</label>
+    <input name="extraction-name" id="extraction-name"
+      value="{{ request.form['extraction-name'] or extraction['extractionName'] }}" required>
+
+    <label for="goal-date">Goal Date</label>
+    <input name="goal-date" id="goal-date"
+      value="{{ request.form['goal-date'] or extraction['goal-date'] }}">
+
+    <label for="analyst">Assigned Analyst</label>
+    <input name="analyst" id="analyst" value="{{ request.form['analyst'] or extraction['analyst'] }}">
+
+    <label for="body">Notes</label>
+    <textarea name="notes" id="notes">{{ request.form['notes'] or extraction['notes'] }}</textarea>
+
+    <input type="submit" value="Save">
+  </form>
+  <hr>
+  <form action="{{ url_for('dashboard.deleteExtraction', id=extraction['id']) }}" method="post">
+    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+  </form>
+{% endblock %}
