@@ -9,6 +9,7 @@ from flaskr.db import get_db
 bp = Blueprint('dashboard', __name__)
 
 @bp.route('/')
+@login_required
 # list all the samples
 def index():
     db = get_db()
@@ -208,6 +209,7 @@ def deleteSample(id):
 
 
 @bp.route("/extractions")
+@login_required
 def extractionsIndex():
     db = get_db()
     extractions = db.execute(

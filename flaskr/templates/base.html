@@ -2,19 +2,31 @@
 <title>Sample Tracker</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-<nav>
-  <h1>Sample Tracker</h1>
+<main>
+  <header class="main-header"><h1>Sample Tracker</h1>
+    <nav>
+      <ul>
+        {% if g.user %}
+          <li><span>Logged In: {{ g.user['username'] }}</span>
+          <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+        {% else %}
+          <li><a href="{{ url_for('auth.register') }}">Register</a>
+          <li> | 
+          <li><a href="{{ url_for('auth.login') }}">Log In</a>
+        {% endif %}
+      </ul>
+    </nav>
+  </header>
+
+{% if g.user %}
+<nav class="processes-nav">
   <ul>
-    {% if g.user %}
-      <li><span>{{ g.user['username'] }}</span>
-      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
-    {% else %}
-      <li><a href="{{ url_for('auth.register') }}">Register</a>
-      <li><a href="{{ url_for('auth.login') }}">Log In</a>
-    {% endif %}
+    <li><a href="/">Samples</a></li>
+    <li>|</li>
+    <li><a href="/extractions">Extractions</a></li>
   </ul>
 </nav>
-<nav><a href="/">Samples</a> | <a href="/extractions">Extractions</a></nav>
+{% endif %}
 <section class="content">
   <header>
     {% block header %}{% endblock %}
@@ -24,3 +36,4 @@
   {% endfor %}
   {% block content %}{% endblock %}
 </section>
+</main>

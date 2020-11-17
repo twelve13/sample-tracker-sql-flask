@@ -1,44 +1,50 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Extractions{% endblock %}</h1>
+  <h1 class="extractions-header">{% block title %}Extractions{% endblock %}</h1>
   {% if g.user %}
-    <a class="action" href="{{ url_for('dashboard.createExtraction') }}">New</a>
+    <a class="action" href="{{ url_for('dashboard.createExtraction') }}">+ NEW</a>
   {% endif %}
+  <div class="table-header">
+    <div>Extraction</div>
+    <div>Status</div>
+    <div>Associated Samples</div>
+  </div>
 {% endblock %}
 
 {% block content %}
   {% for extraction in extractions %}
     <article class="extraction">
       <header>
-        <div class="extraction-info">
-          <div>
-            <h1>{{ extraction['extractionName'] }}</h1>
-            <div>Goal Date: {{ extraction['goalDate'] }}</div>
-            <div>Analyst: {{ extraction['analyst'] }}</div>
-            <div>Notes: {{ extraction['notes'] }}</div>
-          </div>
-          <div>
-            <div>
-              {% if extraction['bbpAdded'] %}
-                Buffers Added &check;
-              {% endif %}
-            </div>
-            <div>
-              {% if extraction['extracted'] %}
-                Extraction Complete &check;
-              {% endif %}
-            </div>
-          </div>
-        </div>
-
-          <a class="action" href="{{ url_for('dashboard.updateExtraction', id=extraction['id']) }}">Edit</a>
-
-          <a class="action" href="{{ url_for('dashboard.showExtractionSet', id=extraction['id']) }}">Associated Samples</a>
+        <h1 class="extractions-header">{{ extraction['extractionName'] }}<a class="action edit-button" href="{{ url_for('dashboard.updateExtraction', id=extraction['id']) }}"><img src="http://simpleicon.com/wp-content/uploads/pen-15-256x256.png" alt="pencil icon"></a></h1>
       </header>
-      {% if not extraction['extracted'] %}
-        <a class="action" href="{{ url_for('dashboard.processExtraction', id=extraction['id']) }}">PROCESS</a>
-      {% endif %}
+      <div class="extraction-info">
+          <div class="extraction-notes">
+                <div>Goal Date: {{ extraction['goalDate'] }}</div>
+                <div>Analyst: {{ extraction['analyst'] }}</div>
+                <div>Notes: {{ extraction['notes'] }}</div>
+          </div>
+          <div class="extraction-status">
+                <div>
+                  {% if extraction['bbpAdded'] %}
+                  Buffers Added &check;
+                  {% endif %}
+                </div>
+                <div>
+                  {% if extraction['extracted'] %}
+                  Extraction Complete &check;
+                  {% endif %}
+                </div>
+                <div>
+                  {% if not extraction['extracted'] %}
+                    <a class="process-button action" href="{{ url_for('dashboard.processExtraction', id=extraction['id']) }}">PROCESS</a>
+                  {% endif %}
+                </div>
+          </div>
+          <div> 
+            <a class="action" href="{{ url_for('dashboard.showExtractionSet', id=extraction['id']) }}">Associated Samples</a>
+          </div>
+      </div>
     </article>
     {% if not loop.last %}
       <hr>

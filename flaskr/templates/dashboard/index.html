@@ -3,22 +3,29 @@
 {% block header %}
   <h1>{% block title %}Samples{% endblock %}</h1>
   {% if g.user %}
-    <a class="action" href="{{ url_for('dashboard.createSample') }}">New</a>
+    <a class="action" href="{{ url_for('dashboard.createSample') }}">+ NEW</a>
   {% endif %}
+  <div class="table-header">
+    <div>Sample</div>
+    <div>Tests</div>
+    <div>Status</div>
+    <div>Extraction Set</div>
+  </div>
 {% endblock %}
 
 {% block content %}
   {% for sample in samples %}
     <article class="sample">
       <header>
-        <div class="{{'is-priority' if sample['isPriority']}}">
-          <h1>{{ sample['sampleName'] }}</h1>
-          <div class="sample-info">
-            <div class="analyst-notes">
+        <div class="{{'is-priority' if sample['isPriority']}}"></div>
+        <h1>{{ sample['sampleName'] }}<a class="action edit-button" href="{{ url_for('dashboard.updateSample', id=sample['id']) }}"><img src="http://simpleicon.com/wp-content/uploads/pen-15-256x256.png" alt="pencil icon"></a></h1>
+      </header>
+      <div class="sample-info">
+          <div class="analyst-notes">
               <div>Analyst: {{ sample['analyst'] }}</div>
               <div>Notes: {{ sample['notes'] }}</div>
-            </div>
-            <div>
+          </div>
+          <div class="assigned-processes">
               <div>
                 {% if sample['strs'] %}
                   STRs
@@ -29,8 +36,8 @@
                   Mito
                 {% endif %}
               </div>
-            </div>
-            <div>
+          </div>
+          <div class="sample-status">
               <div>
                 {% if sample['cleaned'] %}
                   Cleaned &check;
@@ -41,17 +48,21 @@
                   Sampled &check;
                 {% endif %}
               </div>
-            </div>
+              <div>
+                {% if not sample['sampled'] %}
+                  <a class="process-button action" href="{{ url_for('dashboard.processSample', id=sample['id']) }}">PROCESS</a>
+                {% endif %}
+              </div>
           </div>
-          <a class="action edit-button" href="{{ url_for('dashboard.updateSample', id=sample['id']) }}">Edit</a>
-      </header>
-      {% if not sample['sampled'] %}
-        <a class="process-button action" href="{{ url_for('dashboard.processSample', id=sample['id']) }}">PROCESS</a>
-      {% endif %}
+          <div>
+            <a class="action" href="{{ url_for('dashboard.assignSample', id=sample['id']) }}">&gt; Assign</a>
 
-        <a class="action" href="{{ url_for('dashboard.assignSample', id=sample['id']) }}">Assign to an Extraction</a>
-
-        Assigned to: {{ sample['extraction_name'] }}
+            <div>
+              {% if sample['extraction_name'] %}
+                {{ sample['extraction_name'] }}</div>
+              {% endif %}
+          </div>
+      </div>
     </article>
     {% if not loop.last %}
       <hr>

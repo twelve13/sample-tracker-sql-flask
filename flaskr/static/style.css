@@ -1,25 +1,52 @@
-/*do your own css!*/
+/*<span>Photo by <a href="https://unsplash.com/@_louisreed?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Louis Reed</a> on <a href="https://unsplash.com/s/photos/test-tubes?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span>*/
 
-html { font-family: sans-serif; background: #eee; padding: 1rem; }
-body { 
+body {
+	align-content: center;
+	background-image: url("louis-reed-pwcKF7L4-no-unsplash.jpg");
+	background-size: cover; 
+	display: flex;
 	font-family: 'Roboto', sans-serif;
-	max-width: 960px; margin: 0 auto; background: white; 
+	height: 100vh;
 }
-a { color: #377ba8; }
-hr { border: none; border-top: 1px solid lightgray; }
-nav { background: lightgray; display: flex; align-items: center; padding: 0 0.5rem; }
-nav h1 { flex: auto; margin: 0; }
-nav h1 a { text-decoration: none; padding: 0.25rem 0.5rem; }
-nav ul  { display: flex; list-style: none; margin: 0; padding: 0; }
-.content { padding: 0 1rem 1rem; }
-.content > header { border-bottom: 1px solid lightgray; display: flex; align-items: flex-end; }
-.content > header h1 { flex: auto; margin: 1rem 0 0.25rem 0; }
+main { 
+	background-color: rgba(255, 255, 255, 0.85);
+	margin: auto;
+	width: 70%; 
+	padding: 5% 10%;
+}
+a { 
+	color: #377ba8; 
+}
+hr { 
+	border: none; border-top: 1px solid gray; 
+}
+nav { 
+	display: flex; 
+	align-items: center; 
+	padding: 0 0.5rem; 
+}
+nav h1 { 
+	flex: auto; margin: 0; 
+}
+nav h1 a { 
+	text-decoration: none; 
+	padding: 0.25rem 0.5rem; 
+}
+nav ul  { 
+	display: flex; 
+	list-style: none; 
+	margin: 0; 
+	padding: 0; 
+}
+.content > header { 
+	align-items: center; 
+	border-bottom: 1px solid gray; 
+	display: flex; 
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
 .flash { margin: 1em 0; padding: 1em; background: #cae6f6; border: 1px solid #377ba8; }
-.post > header { display: flex; align-items: flex-end; font-size: 0.85em; }
-.post > header > div:first-of-type { flex: auto; }
-.post > header h1 { font-size: 1.5em; margin-bottom: 0; }
-.post .about { color: slategray; font-style: italic; }
-.post .body { white-space: pre-line; }
+
 .content:last-child { margin-bottom: 0; }
 .content form { margin: 1em 0; display: flex; flex-direction: column; }
 .content label { font-weight: bold; margin-bottom: 0.5em; }
@@ -28,12 +55,69 @@ nav ul  { display: flex; list-style: none; margin: 0; padding: 0; }
 input.danger { color: #cc2f2e; }
 input[type=submit] { align-self: start; min-width: 10em; }
 
-.sample {
+header.main-header {
+	display: flex;
+	justify-content: space-between;
+}
+
+header.main-header h1 {
+	margin-right: 50px;
+}
+
+nav ul li {
+	margin: 0 5px;
+}
+
+.processes-nav {
+	background-color: #485778;
+	color: white;
+	padding: 20px 10px;
+	text-transform: uppercase;
+}
+
+.processes-nav a, .processes-nav a:active, .processes-nav a:visited {
+	color: white;
+}
+
+.content h1 {
+	color: #485778;
+}
+
+.content h1.extractions-header {
+	color: #90f;
+}
+
+.table-header {
+	display: flex;
+	font-weight: bold;
+	width: 100%;
+	
+}
+
+.table-header div, .sample-info > div, .extraction-info > div {
+	flex: 1;
+}
+
+.table-header div:first-of-type, .sample-info > div:first-of-type, .extraction-info > div:first-of-type {
+	flex: 2;
+}
+
+.sample, .extraction {
 	position: relative;
 }
 
+.sample h1, .extraction h1 {
+	display: flex;
+	margin-bottom: 0;
+}
+
+.sample h1 img, .extraction h1 img {
+	height: 15px;
+	margin: 0 0 2px 10px;
+}
+
 .analyst-notes {
-	width: 25%;
+	width: 40%;
 }
 
 .edit-button {
@@ -54,6 +138,10 @@ input[type=submit] { align-self: start; min-width: 10em; }
 	justify-content: space-between;
 }
 
+.sample-info {
+	height: 60px;
+}
+
 .process-button {
 	background-color: #00ffd0;
 	border-radius: 15px;
@@ -61,6 +149,5 @@ input[type=submit] { align-self: start; min-width: 10em; }
 	color: black;
 	padding: 5px;
 	position: absolute;
-	right: 0;
 	text-decoration: none;
 }
