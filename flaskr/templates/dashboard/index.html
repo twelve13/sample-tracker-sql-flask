@@ -69,6 +69,7 @@
               <div class="form-group">
                 <label for="assigned-extraction">Assign To Extraction:</label><br>
                 <select name="assigned-extraction">
+                  <option value="">Select extraction:</option>
                   {% for extraction in extractions %}
                     <option value="{{extraction['id']}}">{{ extraction["extractionName"] }}</option>
                   {% endfor %}

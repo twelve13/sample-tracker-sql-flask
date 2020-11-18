@@ -13,11 +13,5 @@
 
   {% endfor %}
   </ul>
-  {% if extraction['extracted'] %}
-  <div class="archive-button-container">
-  	<a class="archive-button action" href="{{ url_for('dashboard.archiveExtraction', id=extraction['id']) }}">ARCHIVE</a>
-  </div>
-  {% endif %}
-
   </article>
 {% endblock %}
