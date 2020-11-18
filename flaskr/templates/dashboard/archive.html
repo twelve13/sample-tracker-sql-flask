@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Archived Samples{% endblock %}</h1>
+
+  <div class="archive-table-header">
+    <div>Sample</div>
+    <div>Analyst</div>
+    <div>Notes</div>
+    <div>STRs</div>
+    <div>Mito</div>
+    <div>Extraction Set</div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  {% for sample in samples %}
+    <div class="archived-sample-info">
+      <div>{{ sample['sampleName'] }}</div>
+      <div>{{ sample['analyst'] }}</div>
+      <div>{{ sample['notes'] }}</div>
+      <div>
+        {% if sample['strs'] %}
+          STRs
+        {% endif %}
+      </div>
+      <div>
+        {% if sample['mito'] %}
+          Mito
+        {% endif %}
+      </div>
+      <div>{{ sample['extraction_name'] }}</div>
+    </div>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}

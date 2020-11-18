@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<article class="sample">
+<article class="associated-samples">
   <ul>
   {% for associatedSample in associatedSamples %}
 
@@ -13,6 +13,11 @@
 
   {% endfor %}
   </ul>
+  {% if extraction['extracted'] %}
+  <div class="archive-button-container">
+  	<a class="archive-button action" href="{{ url_for('dashboard.archiveExtraction', id=extraction['id']) }}">ARCHIVE</a>
+  </div>
+  {% endif %}
 
   </article>
 {% endblock %}

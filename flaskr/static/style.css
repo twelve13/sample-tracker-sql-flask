@@ -151,3 +151,38 @@ nav ul li {
 	position: absolute;
 	text-decoration: none;
 }
+
+.associated-samples {
+	display: flex;
+}
+
+.associated-samples ul {
+	width: 50%;
+}
+
+.archive-button-container {
+	display: flex;
+	align-items: center;
+}
+
+.archive-button {
+	background-color: #9e4c00;
+	border-radius: 15px;
+	color: white;
+	padding: 5px;
+	text-decoration: none;
+}
+
+.archive-table-header {
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.archive-table-header, .archived-sample-info {
+	display: flex;
+	width: 100%;
+}
+
+.archive-table-header > div, .archived-sample-info > div {
+	flex: 1;
+}

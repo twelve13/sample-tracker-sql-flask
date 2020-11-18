@@ -32,7 +32,18 @@ CREATE TABLE sample (
   analyst TEXT,
   cleaned INTEGER NOT NULL,
   sampled INTEGER NOT NULL,
-  updated TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (extraction_id) REFERENCES extraction (id)
+);
+
+CREATE TABLE archive (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  sampleName TEXT UNIQUE NOT NULL,
+  extraction_id INTEGER,
+  extraction_name TEXT,
+  notes TEXT,
+  strs INTEGER,
+  mito INTEGER,
+  analyst TEXT,
   FOREIGN KEY (extraction_id) REFERENCES extraction (id)
 );
 

@@ -195,6 +195,7 @@ def assignSample(id):
 
     return render_template("dashboard/assignSample.html", sample=sample, extractions=extractions)
 
+
 @bp.route("/<int:id>/deleteSample", methods=("POST",))
 @login_required
 def deleteSample(id):
@@ -204,8 +205,6 @@ def deleteSample(id):
     db.execute("DELETE FROM sample WHERE id = ?", (id,))
     db.commit()
     return redirect(url_for("dashboard.index"))
-
-
 
 
 @bp.route("/extractions")
@@ -254,6 +253,7 @@ def showExtractionSet(id):
     ).fetchall()
 
     return render_template('dashboard/showExtractionSet.html', extraction=extraction, associatedSamples=associatedSamples)
+
 
 @bp.route("/createExtraction", methods=("GET", "POST"))
 @login_required
@@ -353,3 +353,44 @@ def deleteExtraction(id):
     db.execute("DELETE FROM extraction WHERE id = ?", (id,))
     db.commit()
     return redirect(url_for("dashboard.extractionsIndex"))
+
+
+@bp.route("/<int:id>/archiveExtraction", methods=("GET", "POST"))
+def archiveExtraction(id):
+    # add samples to archive table and remove from samples table, remove from extractions table
+    extraction = get_extraction(id)
+
+    db = get_db()
+    associatedSamples = db.execute(
+        'SELECT * FROM sample WHERE extraction_id = ?', (id,),
+    ).fetchall()
+
+    for sample in associatedSamples:
+
+        db.execute(
+            "INSERT INTO archive (sampleName, analyst, notes, strs, mito, extraction_name) VALUES (?, ?, ?, ?, ?, ?)",
+            (sample["sampleName"], sample["analyst"], sample["notes"], sample["strs"], sample["mito"], sample["extraction_name"]),
+        )
+
+        sampleId = sample["id"]
+
+        db.execute("DELETE FROM sample WHERE id = ?", (sampleId,))
+        db.execute("DELETE FROM extraction WHERE id = ?", (id,))
+
+        db.commit()
+
+    return redirect(url_for("dashboard.extractionsIndex"))
+
+    
+@bp.route('/archive')
+@login_required
+# list all the archived samples
+def showArchive():
+    db = get_db()
+    samples = db.execute(
+        'SELECT id, sampleName, analyst, notes, strs, mito, extraction_name'
+        ' FROM archive'
+        ' ORDER BY sampleName'
+    ).fetchall()
+    
+    return render_template('dashboard/archive.html', samples=samples)
