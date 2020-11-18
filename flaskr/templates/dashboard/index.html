@@ -23,7 +23,9 @@
       <div class="sample-info">
           <div class="analyst-notes">
               <div>Analyst: {{ sample['analyst'] }}</div>
-              <div>Notes: {{ sample['notes'] }}</div>
+              {% if sample['notes'] %}
+                <div>Notes: {{ sample['notes'] }}</div>
+              {% endif %}
           </div>
           <div class="assigned-processes">
               <div>

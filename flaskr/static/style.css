@@ -93,14 +93,17 @@ nav ul li {
 }
 
 .content h1.extractions-header {
-	color: #90f;
+	color: #734979;
+}
+
+.sample header {
+	position: relative;
 }
 
 .table-header {
 	display: flex;
 	font-weight: bold;
 	width: 100%;
-	
 }
 
 .table-header div, .sample-info > div, .extraction-info > div {
@@ -133,12 +136,20 @@ nav ul li {
 	padding-top: 5px;
 }
 
+.is-priority {
+	left: -70px;
+	position: absolute;
+	top: 20px;
+	transform: rotate(-90deg);
+}
+
 .is-priority::before {
 	background-color: #ff008c;
 	color: white;
 	content: "PRIORITY";
 	display: block;
-	width: 80px;
+	padding: 5px;
+	width: 70px;
 }
 
 .sample-info, .extraction-info {
@@ -212,6 +223,7 @@ nav ul li {
 }
 
 .archive-table-header {
+	color: #485778;;
 	font-weight: bold;
 	margin-bottom: 20px;
 }

@@ -7,8 +7,8 @@
   {% endif %}
   <div class="table-header">
     <div>Extraction</div>
-    <div>Status</div>
     <div>Associated Samples</div>
+    <div>Status</div>
     <div>Archive</div>
   </div>
 {% endblock %}
@@ -23,7 +23,12 @@
           <div class="extraction-notes">
                 <div>Goal Date: {{ extraction['goalDate'] }}</div>
                 <div>Analyst: {{ extraction['analyst'] }}</div>
-                <div>Notes: {{ extraction['notes'] }}</div>
+                {% if extraction['notes'] %}
+                  <div>Notes: {{ extraction['notes'] }}</div>
+                {% endif %}
+          </div>
+          <div> 
+            <a class="action" href="{{ url_for('dashboard.showExtractionSet', id=extraction['id']) }}">Associated Samples</a>
           </div>
           <div class="extraction-status">
                 <div>
@@ -44,9 +49,6 @@
                       </form>
                   {% endif %}
                 </div>
-          </div>
-          <div> 
-            <a class="action" href="{{ url_for('dashboard.showExtractionSet', id=extraction['id']) }}">Associated Samples</a>
           </div>
           <div class="archive-button-container">
             {% if extraction['extracted'] %}
