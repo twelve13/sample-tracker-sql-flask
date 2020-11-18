@@ -156,6 +156,22 @@ nav ul li {
 	padding: 3px;
 }
 
+.cleaned-button {
+	background-color: #ffb999;
+}
+
+.sampled-button {
+	background-color: #fff199;
+}
+
+.buffers-added-button {
+	background-color: #99ffbe;
+}
+
+.extracted-button {
+	background-color: #99d6ff;
+}
+
 .checkmark {
 	color: #00c728;
 }
@@ -188,7 +204,7 @@ nav ul li {
 }
 
 .archive-button {
-	background-color: #9e4c00;
+	background-color: #c999ff;
 	border-radius: 15px;
 	color: white;
 	padding: 5px;

@@ -31,7 +31,7 @@
                     Buffers Added <span class="checkmark">&check;</span>
                     {% else %}
                       <form class="process-form" action="{{ url_for('dashboard.markExtractionBuffersAdded', id=extraction['id']) }}" method="post">
-                        <input type="submit" value="Mark Buffers Added">
+                        <input class="buffers-added-button" type="submit" value="Mark Buffers Added">
                       </form>
                   {% endif %}
                 </div>
@@ -40,7 +40,7 @@
                     Extraction Completed <span class="checkmark">&check;</span>
                     {% else %}
                       <form class="process-form" action="{{ url_for('dashboard.markExtractionExtracted', id=extraction['id']) }}" method="post">
-                        <input type="submit" value="Mark Extracted">
+                        <input class="extracted-button" type="submit" value="Mark Extracted">
                       </form>
                   {% endif %}
                 </div>
