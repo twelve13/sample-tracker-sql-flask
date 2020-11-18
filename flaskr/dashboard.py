@@ -129,34 +129,30 @@ def updateSample(id):
     return render_template("dashboard/updateSample.html", sample=sample)
 
 
-@bp.route("/<int:id>/processSample", methods=("GET", "POST"))
-# update if sample is cleaned or sampled
+@bp.route("/<int:id>/markSampleCleaned", methods=("POST",))
 @login_required
-def processSample(id):
-    sample = get_sample(id)
+def markSampleCleaned(id):
+    # update sample to true for "cleaned" field
+    get_sample(id)
+    db = get_db()
+    db.execute(
+        "UPDATE sample SET cleaned = ? WHERE id = ?", (1, id)
+    )
+    db.commit()
+    return redirect(url_for("dashboard.index"))
 
-    if request.method == "POST":
-        if request.form.get("cleaned"):
-            cleaned = 1
-        else:
-            cleaned = 0
-        if request.form.get("sampled"):
-            sampled = 1
-        else:
-            sampled = 0
-        error = None
 
-        if error is not None:
-            flash(error)
-        else:
-            db = get_db()
-            db.execute(
-                "UPDATE sample SET cleaned = ?, sampled = ? WHERE id = ?", (cleaned, sampled, id)
-            )
-            db.commit()
-            return redirect(url_for("dashboard.index"))
-
-    return render_template("dashboard/processSample.html", sample=sample)
+@bp.route("/<int:id>/markSampleSampled", methods=("POST",))
+@login_required
+def markSampleSampled(id):
+    # update sample to true for "sampled" field
+    get_sample(id)
+    db = get_db()
+    db.execute(
+        "UPDATE sample SET sampled = ? WHERE id = ?", (1, id)
+    )
+    db.commit()
+    return redirect(url_for("dashboard.index"))
 
 
 @bp.route("/<int:id>/assignSample", methods=("GET", "POST"))
@@ -381,7 +377,7 @@ def archiveExtraction(id):
 
     return redirect(url_for("dashboard.extractionsIndex"))
 
-    
+
 @bp.route('/archive')
 @login_required
 # list all the archived samples

@@ -40,17 +40,20 @@
           <div class="sample-status">
               <div>
                 {% if sample['cleaned'] %}
-                  Cleaned &check;
+                  Cleaned <span class="checkmark">&check;</span>
+                {% else %}
+                  <form class="process-form" action="{{ url_for('dashboard.markSampleCleaned', id=sample['id']) }}" method="post">
+                    <input type="submit" value="Cleaned">
+                  </form>
                 {% endif %}
               </div>
               <div>
                 {% if sample['sampled'] %}
-                  Sampled &check;
-                {% endif %}
-              </div>
-              <div>
-                {% if not sample['sampled'] %}
-                  <a class="process-button action" href="{{ url_for('dashboard.processSample', id=sample['id']) }}">PROCESS</a>
+                  Sampled <span class="checkmark">&check;</span>
+                {% else %}
+                  <form class="process-form" action="{{ url_for('dashboard.markSampleSampled', id=sample['id']) }}" method="post">
+                    <input type="submit" value="Sampled">
+                  </form>
                 {% endif %}
               </div>
           </div>

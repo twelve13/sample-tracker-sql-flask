@@ -47,8 +47,17 @@ nav ul  {
 }
 .flash { margin: 1em 0; padding: 1em; background: #cae6f6; border: 1px solid #377ba8; }
 
-.content:last-child { margin-bottom: 0; }
-.content form { margin: 1em 0; display: flex; flex-direction: column; }
+.content:last-child { 
+	margin-bottom: 0; 
+}
+.content form { 
+	margin: 1em 0; 
+	display: flex; 
+	flex-direction: column; 
+}
+.content form.process-form {
+	margin: 0;
+}
 .content label { font-weight: bold; margin-bottom: 0.5em; }
 .content input, .content textarea { margin-bottom: 1em; }
 .content textarea { min-height: 12em; resize: vertical; }
@@ -102,7 +111,7 @@ nav ul li {
 	flex: 2;
 }
 
-.sample, .extraction {
+.extraction {
 	position: relative;
 }
 
@@ -142,14 +151,8 @@ nav ul li {
 	height: 60px;
 }
 
-.process-button {
-	background-color: #00ffd0;
-	border-radius: 15px;
-	bottom: 10px;
-	color: black;
-	padding: 5px;
-	position: absolute;
-	text-decoration: none;
+.checkmark {
+	color: #00c728;
 }
 
 .associated-samples {
