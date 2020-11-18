@@ -43,7 +43,7 @@
                   Cleaned <span class="checkmark">&check;</span>
                 {% else %}
                   <form class="process-form" action="{{ url_for('dashboard.markSampleCleaned', id=sample['id']) }}" method="post">
-                    <input type="submit" value="Cleaned">
+                    <input type="submit" value="Mark Cleaned">
                   </form>
                 {% endif %}
               </div>
@@ -52,7 +52,7 @@
                   Sampled <span class="checkmark">&check;</span>
                 {% else %}
                   <form class="process-form" action="{{ url_for('dashboard.markSampleSampled', id=sample['id']) }}" method="post">
-                    <input type="submit" value="Sampled">
+                    <input type="submit" value="Mark Sampled">
                   </form>
                 {% endif %}
               </div>

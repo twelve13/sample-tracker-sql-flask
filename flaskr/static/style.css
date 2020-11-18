@@ -111,10 +111,6 @@ nav ul li {
 	flex: 2;
 }
 
-.extraction {
-	position: relative;
-}
-
 .sample h1, .extraction h1 {
 	display: flex;
 	margin-bottom: 0;
@@ -149,6 +145,12 @@ nav ul li {
 
 .sample-info {
 	height: 60px;
+}
+
+.process-form input {
+	border-radius: 10px;
+	cursor: pointer;
+	padding: 3px;
 }
 
 .checkmark {

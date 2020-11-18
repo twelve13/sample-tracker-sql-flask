@@ -27,17 +27,20 @@
           <div class="extraction-status">
                 <div>
                   {% if extraction['bbpAdded'] %}
-                  Buffers Added &check;
+                    Buffers Added <span class="checkmark">&check;</span>
+                    {% else %}
+                      <form class="process-form" action="{{ url_for('dashboard.markExtractionBuffersAdded', id=extraction['id']) }}" method="post">
+                        <input type="submit" value="Mark Buffers Added">
+                      </form>
                   {% endif %}
                 </div>
                 <div>
                   {% if extraction['extracted'] %}
-                  Extraction Complete &check;
-                  {% endif %}
-                </div>
-                <div>
-                  {% if not extraction['extracted'] %}
-                    <a class="process-button action" href="{{ url_for('dashboard.processExtraction', id=extraction['id']) }}">PROCESS</a>
+                    Extraction Completed <span class="checkmark">&check;</span>
+                    {% else %}
+                      <form class="process-form" action="{{ url_for('dashboard.markExtractionExtracted', id=extraction['id']) }}" method="post">
+                        <input type="submit" value="Mark Extracted">
+                      </form>
                   {% endif %}
                 </div>
           </div>

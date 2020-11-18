@@ -310,34 +310,30 @@ def updateExtraction(id):
     return render_template("dashboard/updateExtraction.html", extraction=extraction)
 
 
-@bp.route("/<int:id>/processExtraction", methods=("GET", "POST"))
-# update if extraction set has had buffers added or has been extracted
+@bp.route("/<int:id>/markExtractionBuffersAdded", methods=("POST",))
 @login_required
-def processExtraction(id):
-    extraction = get_extraction(id)
+def markExtractionBuffersAdded(id):
+    # update extraction to true for "bbpAdded" field
+    get_extraction(id)
+    db = get_db()
+    db.execute(
+        "UPDATE extraction SET bbpAdded = ? WHERE id = ?", (1, id)
+    )
+    db.commit()
+    return redirect(url_for("dashboard.extractionsIndex"))
 
-    if request.method == "POST":
-        if request.form.get("bbpAdded"):
-            bbpAdded = 1
-        else:
-            bbpAdded = 0
-        if request.form.get("extracted"):
-            extracted = 1
-        else:
-            extracted = 0
-        error = None
 
-        if error is not None:
-            flash(error)
-        else:
-            db = get_db()
-            db.execute(
-                "UPDATE extraction SET bbpAdded = ?, extracted = ? WHERE id = ?", (bbpAdded, extracted, id)
-            )
-            db.commit()
-            return redirect(url_for("dashboard.extractionsIndex"))
-
-    return render_template("dashboard/processExtraction.html", extraction=extraction)
+@bp.route("/<int:id>/markExtractionExtracted", methods=("POST",))
+@login_required
+def markExtractionExtracted(id):
+    # update extraction to true for "extracted" field
+    get_extraction(id)
+    db = get_db()
+    db.execute(
+        "UPDATE extraction SET extracted = ? WHERE id = ?", (1, id)
+    )
+    db.commit()
+    return redirect(url_for("dashboard.extractionsIndex"))
 
 
 @bp.route("/<int:id>/deleteExtraction", methods=("POST",))
