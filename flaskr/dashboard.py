@@ -18,8 +18,12 @@ def index():
         ' FROM sample'
         ' ORDER BY sampleName'
     ).fetchall()
+
+    extractions = db.execute(
+        'SELECT extractionName, id FROM extraction ORDER BY extractionName'
+    ).fetchall()
     
-    return render_template('dashboard/index.html', samples=samples)
+    return render_template('dashboard/index.html', samples=samples, extractions=extractions)
 
 def get_sample(id, check_author=True):
     """Get a sample and its author by id.
@@ -162,9 +166,7 @@ def assignSample(id):
     sample = get_sample(id)
 
     db = get_db()
-    extractions = db.execute(
-        'SELECT extractionName, id FROM extraction ORDER BY extractionName'
-    ).fetchall()
+
 
     if request.method == "POST":
         # this will return the id 1, 2, 3 etc
@@ -172,7 +174,7 @@ def assignSample(id):
 
         # select all items with this selectedExtraction id number
         selectedExtractionDb = db.execute(
-            'SELECT extractionName FROM extraction WHERE id= ?', (selectedExtraction)
+            'SELECT extractionName FROM extraction WHERE id= ?', (selectedExtraction,)
         ).fetchall()
 
         # then get the first row and its extractionName
@@ -189,13 +191,13 @@ def assignSample(id):
             db.commit()
             return redirect(url_for("dashboard.index"))
 
-    return render_template("dashboard/assignSample.html", sample=sample, extractions=extractions)
+    
 
 
 @bp.route("/<int:id>/deleteSample", methods=("POST",))
 @login_required
 def deleteSample(id):
-    # Delete a sample.
+    # Delete a sample
     get_sample(id)
     db = get_db()
     db.execute("DELETE FROM sample WHERE id = ?", (id,))

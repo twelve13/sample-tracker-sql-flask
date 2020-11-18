@@ -9,7 +9,7 @@ body {
 	height: 100vh;
 }
 main { 
-	background-color: rgba(255, 255, 255, 0.85);
+	background-color: rgba(255, 255, 255, 0.9);
 	margin: auto;
 	width: 70%; 
 	padding: 5% 10%;
@@ -107,7 +107,10 @@ nav ul li {
 	flex: 1;
 }
 
-.table-header div:first-of-type, .sample-info > div:first-of-type, .extraction-info > div:first-of-type {
+.table-header div:first-of-type, 
+.sample-info > div:first-of-type, 
+.extraction-info > div:first-of-type,
+.sample-table-header div:last-of-type {
 	flex: 2;
 }
 
@@ -155,6 +158,20 @@ nav ul li {
 
 .checkmark {
 	color: #00c728;
+}
+
+.unassigned {
+	color: gray;
+	font-style: italic;
+}
+
+.content form.assign-extraction-form {
+	margin: 0;
+}
+
+.assign-extraction-form label {
+	font-size: 12px;
+	font-weight: normal;
 }
 
 .associated-samples {

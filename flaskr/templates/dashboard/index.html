@@ -5,7 +5,7 @@
   {% if g.user %}
     <a class="action" href="{{ url_for('dashboard.createSample') }}">+ NEW</a>
   {% endif %}
-  <div class="table-header">
+  <div class="table-header sample-table-header">
     <div>Sample</div>
     <div>Tests</div>
     <div>Status</div>
@@ -58,12 +58,24 @@
               </div>
           </div>
           <div>
-            <a class="action" href="{{ url_for('dashboard.assignSample', id=sample['id']) }}">&gt; Assign</a>
-
-            <div>
               {% if sample['extraction_name'] %}
-                {{ sample['extraction_name'] }}</div>
+                {{ sample['extraction_name'] }}
+              {% else %}
+                <span class="unassigned">Unassigned</span>
               {% endif %}
+          </div>
+          <div>
+            <form class="assign-extraction-form" action="{{ url_for('dashboard.assignSample', id=sample['id']) }}" method="post">
+              <div class="form-group">
+                <label for="assigned-extraction">Assign To Extraction:</label><br>
+                <select name="assigned-extraction">
+                  {% for extraction in extractions %}
+                    <option value="{{extraction['id']}}">{{ extraction["extractionName"] }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <input type="submit" value="Save">
+            </form>
           </div>
       </div>
     </article>
