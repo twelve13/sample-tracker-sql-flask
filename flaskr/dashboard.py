@@ -10,7 +10,7 @@ bp = Blueprint('dashboard', __name__)
 
 @bp.route('/')
 @login_required
-# list all the samples
+# List all the samples
 def index():
     db = get_db()
     samples = db.execute(
@@ -49,7 +49,7 @@ def get_sample(id, check_author=True):
 
 
 @bp.route("/createSample", methods=("GET", "POST"))
-# create a new sample pulling from the createSample.html form
+# Create a new sample pulling from the createSample.html form
 # since there is no boolean type for sql, convert checkboxes to 1 for checked, 0 for unchecked
 # at creation, sample won't be cleaned or sampled, so just set to 0
 @login_required
@@ -95,8 +95,8 @@ def createSample():
 
 @bp.route("/<int:id>/updateSample", methods=("GET", "POST"))
 @login_required
+# Update a sample using form
 def updateSample(id):
-    # Update a sample
     sample = get_sample(id)
 
     if request.method == "POST":
@@ -135,8 +135,8 @@ def updateSample(id):
 
 @bp.route("/<int:id>/markSampleCleaned", methods=("POST",))
 @login_required
+# Update sample to true for "cleaned" field
 def markSampleCleaned(id):
-    # update sample to true for "cleaned" field
     get_sample(id)
     db = get_db()
     db.execute(
@@ -148,8 +148,8 @@ def markSampleCleaned(id):
 
 @bp.route("/<int:id>/markSampleSampled", methods=("POST",))
 @login_required
+# Update sample to true for "sampled" field
 def markSampleSampled(id):
-    # update sample to true for "sampled" field
     get_sample(id)
     db = get_db()
     db.execute(
@@ -160,13 +160,11 @@ def markSampleSampled(id):
 
 
 @bp.route("/<int:id>/assignSample", methods=("GET", "POST"))
-# assign a sample to an extraction set
 @login_required
+# Assign a sample to an extraction set
 def assignSample(id):
     sample = get_sample(id)
-
     db = get_db()
-
 
     if request.method == "POST":
         # this will return the id 1, 2, 3 etc
@@ -192,12 +190,10 @@ def assignSample(id):
             return redirect(url_for("dashboard.index"))
 
     
-
-
 @bp.route("/<int:id>/deleteSample", methods=("POST",))
 @login_required
+# Delete a sample from database
 def deleteSample(id):
-    # Delete a sample
     get_sample(id)
     db = get_db()
     db.execute("DELETE FROM sample WHERE id = ?", (id,))
@@ -207,6 +203,7 @@ def deleteSample(id):
 
 @bp.route("/extractions")
 @login_required
+# List all the Extraction sets
 def extractionsIndex():
     db = get_db()
     extractions = db.execute(
@@ -241,8 +238,8 @@ def get_extraction(id, check_author=True):
 
 
 @bp.route("/<int:id>/showExtractionSet", methods=("GET", "POST"))
+# Show associated samples
 def showExtractionSet(id):
-    # Show associated samples
     extraction = get_extraction(id)
 
     db = get_db()
@@ -255,6 +252,7 @@ def showExtractionSet(id):
 
 @bp.route("/createExtraction", methods=("GET", "POST"))
 @login_required
+# Create an extraction using form
 def createExtraction():
     if request.method == "POST":
         extractionName = request.form["extraction-name"]
@@ -284,8 +282,8 @@ def createExtraction():
 
 @bp.route("/<int:id>/updateExtraction", methods=("GET", "POST"))
 @login_required
+# Update an extraction using form
 def updateExtraction(id):
-    # Update an extraction
     extraction = get_extraction(id)
 
     if request.method == "POST":
@@ -314,8 +312,8 @@ def updateExtraction(id):
 
 @bp.route("/<int:id>/markExtractionBuffersAdded", methods=("POST",))
 @login_required
+# Update extraction to true for "bbpAdded" field
 def markExtractionBuffersAdded(id):
-    # update extraction to true for "bbpAdded" field
     get_extraction(id)
     db = get_db()
     db.execute(
@@ -327,8 +325,8 @@ def markExtractionBuffersAdded(id):
 
 @bp.route("/<int:id>/markExtractionExtracted", methods=("POST",))
 @login_required
+# Update extraction to true for "extracted" field
 def markExtractionExtracted(id):
-    # update extraction to true for "extracted" field
     get_extraction(id)
     db = get_db()
     db.execute(
@@ -340,8 +338,8 @@ def markExtractionExtracted(id):
 
 @bp.route("/<int:id>/deleteExtraction", methods=("POST",))
 @login_required
+# Delete an extraction from the database
 def deleteExtraction(id):
-    # Delete an extraction.
     get_extraction(id)
     db = get_db()
     db.execute("DELETE FROM extraction WHERE id = ?", (id,))
@@ -350,8 +348,8 @@ def deleteExtraction(id):
 
 
 @bp.route("/<int:id>/archiveExtraction", methods=("GET", "POST"))
+#Add samples to archive table, remove samples from samples table, remove extraction from extractions table
 def archiveExtraction(id):
-    # add samples to archive table and remove from samples table, remove from extractions table
     extraction = get_extraction(id)
 
     db = get_db()
@@ -378,7 +376,7 @@ def archiveExtraction(id):
 
 @bp.route('/archive')
 @login_required
-# list all the archived samples
+# List all the archived samples
 def showArchive():
     db = get_db()
     samples = db.execute(
