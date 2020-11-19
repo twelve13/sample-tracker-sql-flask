@@ -110,9 +110,8 @@ nav ul li {
 	flex: 1;
 }
 
-.table-header div:first-of-type, 
+.sample-table-header div:first-of-type, 
 .sample-info > div:first-of-type, 
-.extraction-info > div:first-of-type,
 .sample-table-header div:last-of-type {
 	flex: 2;
 }

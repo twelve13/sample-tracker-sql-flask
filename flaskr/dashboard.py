@@ -260,19 +260,6 @@ def get_extraction(id, check_author=True):
     return extraction
 
 
-@bp.route("/<int:id>/showExtractionSet", methods=("GET", "POST"))
-# Show associated samples
-def showExtractionSet(id):
-    extraction = get_extraction(id)
-
-    db = get_db()
-    associatedSamples = db.execute(
-        'SELECT sampleName FROM sample WHERE extraction_id = ?', (id,),
-    ).fetchall()
-
-    return render_template('dashboard/showExtractionSet.html', extraction=extraction, associatedSamples=associatedSamples)
-
-
 @bp.route("/createExtraction", methods=("GET", "POST"))
 @login_required
 # Create an extraction using form
