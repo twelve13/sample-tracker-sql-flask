@@ -14,45 +14,50 @@
 {% endblock %}
 
 {% block content %}
-  {% for extraction in extractions %}
+  {% for extractionsWithSample in extractionsWithSamples %}
     <article class="extraction">
       <header>
-        <h1 class="extractions-header">{{ extraction['extractionName'] }}<a class="action edit-button" href="{{ url_for('dashboard.updateExtraction', id=extraction['id']) }}"><img src="http://simpleicon.com/wp-content/uploads/pen-15-256x256.png" alt="pencil icon"></a></h1>
+        <h1 class="extractions-header">{{ extractionsWithSample['extractionName'] }}<a class="action edit-button" href="{{ url_for('dashboard.updateExtraction', id=extractionsWithSample['id']) }}"><img src="http://simpleicon.com/wp-content/uploads/pen-15-256x256.png" alt="pencil icon"></a></h1>
       </header>
       <div class="extraction-info">
           <div class="extraction-notes">
-                <div>Goal Date: {{ extraction['goalDate'] }}</div>
-                <div>Analyst: {{ extraction['analyst'] }}</div>
-                {% if extraction['notes'] %}
-                  <div>Notes: {{ extraction['notes'] }}</div>
+                <div>Goal Date: {{ extractionsWithSample['goalDate'] }}</div>
+                <div>Analyst: {{ extractionsWithSample['analyst'] }}</div>
+                {% if extractionsWithSample['notes'] %}
+                  <div>Notes: {{ extractionsWithSample['notes'] }}</div>
                 {% endif %}
           </div>
           <div> 
-            <a class="action" href="{{ url_for('dashboard.showExtractionSet', id=extraction['id']) }}">Associated Samples</a>
+            <ul>
+              {% for associatedSample in extractionsWithSample.associatedSamples %} 
+                <li>{{associatedSample[0]}}</li> 
+              {% endfor %}
+            <ul>
           </div>
+
           <div class="extraction-status">
                 <div>
-                  {% if extraction['bbpAdded'] %}
+                  {% if extractionsWithSample['bbpAdded'] %}
                     Buffers Added <span class="checkmark">&check;</span>
                     {% else %}
-                      <form class="process-form" action="{{ url_for('dashboard.markExtractionBuffersAdded', id=extraction['id']) }}" method="post">
+                      <form class="process-form" action="{{ url_for('dashboard.markExtractionBuffersAdded', id=extractionsWithSample['id']) }}" method="post">
                         <input class="buffers-added-button" type="submit" value="Mark Buffers Added">
                       </form>
                   {% endif %}
                 </div>
                 <div>
-                  {% if extraction['extracted'] %}
+                  {% if extractionsWithSample['extracted'] %}
                     Extraction Completed <span class="checkmark">&check;</span>
                     {% else %}
-                      <form class="process-form" action="{{ url_for('dashboard.markExtractionExtracted', id=extraction['id']) }}" method="post">
+                      <form class="process-form" action="{{ url_for('dashboard.markExtractionExtracted', id=extractionsWithSample['id']) }}" method="post">
                         <input class="extracted-button" type="submit" value="Mark Extracted">
                       </form>
                   {% endif %}
                 </div>
           </div>
           <div class="archive-button-container">
-            {% if extraction['extracted'] %}
-                <a class="archive-button action" href="{{ url_for('dashboard.archiveExtraction', id=extraction['id']) }}">ARCHIVE</a>
+            {% if extractionsWithSample['extracted'] %}
+                <a class="archive-button action" href="{{ url_for('dashboard.archiveExtraction', id=extractionsWithSample['id']) }}">ARCHIVE</a>
             {% endif %}
           </div>
             

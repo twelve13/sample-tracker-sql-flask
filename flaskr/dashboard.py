@@ -205,6 +205,8 @@ def deleteSample(id):
 @login_required
 # List all the Extraction sets
 def extractionsIndex():
+    # The only way I could figure out how to tack on each extraction's associated samples was to create another array called extractionsWithSamples, and for each extraction, tack on all the extraction info along with its associated samples that we get from another query
+    extractionsWithSamples = []
     db = get_db()
     extractions = db.execute(
         'SELECT p.id, extractionName, goalDate, analyst, notes, bbpAdded, extracted'
@@ -212,7 +214,28 @@ def extractionsIndex():
         ' ORDER BY extractionName'
     ).fetchall()
 
-    return render_template('dashboard/extractions.html', extractions=extractions)
+    for extraction in extractions:
+   
+        extractionId = extraction['id']
+
+        db = get_db()
+        associatedSamples = db.execute(
+            'SELECT sampleName FROM sample WHERE extraction_id = ?', (extractionId,),
+        ).fetchall()
+
+        extractionsWithSamples.append(
+            {"id": extraction['id'],
+            "extractionName": extraction['extractionName'], 
+            "goalDate": extraction['goalDate'], 
+            "analyst": extraction['analyst'], 
+            "notes": extraction['notes'],
+            "bbpAdded": extraction['bbpAdded'],
+            "extracted": extraction['extracted'],
+            "associatedSamples": associatedSamples
+            }
+        )
+
+    return render_template('dashboard/extractions.html', extractions=extractions, extractionsWithSamples=extractionsWithSamples)
 
 def get_extraction(id, check_author=True):
     """Get an extraction and its author by id.
